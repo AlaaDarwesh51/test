@@ -1,0 +1,13 @@
+{
+    "devDependencies": {
+        "playwright": "1.33.0"
+    }
+    
+}// Start waiting for download before clicking. Note no await.
+const downloadPromise = page.waitForEvent('download');
+await page.getByText('Download file').click();
+const download = await downloadPromise;
+// Wait for the download process to complete
+console.log(await download.path());
+// Save downloaded file somewhere
+await download.saveAs('/path/to/save/download/at.txt');
